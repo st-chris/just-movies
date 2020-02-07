@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-function App() {
+import DataFetch from './components/datafetch/DataFetch';
+
+import Header from './components/header/Header';
+import Homepage from './pages/homepage/Homepage';
+import Search from './pages/search/Search';
+import MovieOverview from './components/movie-overview/Movie-overview';
+import About from './pages/about/About';
+import { API_KEY } from './config';
+import './App.scss';
+
+const App = () => {
+  const [{ data, isLoading, isError }, doFetch] = DataFetch();
+  useEffect(() => {
+    doFetch(
+      `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`
+    );
+  }, [doFetch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='container-fluid'>
+        <Header />
+        <Switch>
+          <Route
+            exact
+            path='/'
+            render={props => (
+              <Homepage
+                data={data}
+                isLoading={isLoading}
+                isError={isError}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/popular'
+            render={props => (
+              <MovieOverview
+                data={data}
+                isLoading={isLoading}
+                isError={isError}
+                {...props}
+              />
+            )}
+          />
+          <Route exact path='/search/:query' component={Search} />
+          <Route exact path='/about' component={About} />
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
