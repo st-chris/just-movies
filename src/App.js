@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import DataFetch from './components/datafetch/DataFetch';
@@ -13,11 +13,12 @@ import './App.scss';
 
 const App = () => {
   const [{ data, isLoading, isError }, doFetch] = DataFetch();
+  const [page, setPage] = useState(1);
   useEffect(() => {
     doFetch(
-      `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&api_key=${API_KEY}`
     );
-  }, [doFetch]);
+  }, [doFetch, page]);
 
   return (
     <Router>
@@ -44,6 +45,8 @@ const App = () => {
                 data={data}
                 isLoading={isLoading}
                 isError={isError}
+                page={page}
+                setPage={setPage}
                 {...props}
               />
             )}

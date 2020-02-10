@@ -1,0 +1,16 @@
+.page-item.active .page-link {
+  background-color: #9b5437;
+  border-color: #9b5437;
+}
+.page-item.disabled .page-link {
+  color: #6c757d;
+  background-color: #e7e5df;
+}
+.page-link {
+  background-color: #e7e5df;
+  border-color: #e7e5df;
+  color: #9b5437;
+  &:hover {
+    color: #000;
+  }
+}

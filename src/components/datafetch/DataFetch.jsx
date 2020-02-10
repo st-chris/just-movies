@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const DataFetch = () => {
+const DataFetch = initialUrl => {
   const [data, setData] = useState([]);
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState(initialUrl);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   useEffect(() => {
@@ -13,11 +13,10 @@ const DataFetch = () => {
 
       try {
         const result = await axios(url);
-        setData(result.data.results);
+        setData(result.data);
       } catch (error) {
         setIsError(true);
       }
-
       setIsLoading(false);
     };
     fetchData();
