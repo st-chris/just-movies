@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardImg,
@@ -9,15 +10,9 @@ import {
   Button,
   Col
 } from 'reactstrap';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Rating from '../rating/Rating';
 
 const MovieCard = ({ movie }) => {
-  const rating = Math.round(movie.vote_average / 2);
-  let stars = [];
-  for (let i = 0; i < rating; i++) {
-    stars.push(<FontAwesomeIcon key={i} icon={faStar} />);
-  }
   let poster = '';
   if (!movie.poster_path) {
     poster =
@@ -30,7 +25,7 @@ const MovieCard = ({ movie }) => {
     <Fragment>
       <Col key={movie.id} xs='8' sm='4' lg='2' className='mb-2'>
         <Card className='bg-cararra'>
-          <CardImg top width='100%' src={poster} alt='Card image cap' />
+          <CardImg top width='100%' src={poster} alt={movie.title} />
           <CardBody>
             <CardTitle className='font-weight-bold'>
               {movie.title.length > 20
@@ -38,10 +33,12 @@ const MovieCard = ({ movie }) => {
                 : movie.title}
             </CardTitle>
             <CardSubtitle>
-              {stars} ({movie.vote_count})
+              <Rating vote_average={movie.vote_average} /> ({movie.vote_count})
             </CardSubtitle>
             <CardText className='font-italic'>{movie.release_date}</CardText>
-            <Button>Read more</Button>
+            <Link to={`/movie/${movie.id}`}>
+              <Button>Read more</Button>
+            </Link>
           </CardBody>
         </Card>
       </Col>

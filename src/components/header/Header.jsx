@@ -43,9 +43,6 @@ const Header = ({ history }) => {
             <NavItem>
               <NavLink href='/about'>about</NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink href='/'>contact</NavLink>
-            </NavItem>
           </Nav>
           <Form inline onSubmit={e => onSubmit(e)}>
             <FormGroup>

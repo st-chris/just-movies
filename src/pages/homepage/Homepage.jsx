@@ -1,24 +1,35 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { Row, Col, Button } from 'reactstrap';
 
-let randomNum = Math.floor(Math.random() * 11);
+let randomNum = Math.floor(Math.random() * 21);
 
 const Homepage = ({ data, isLoading, isError }) => {
   return (
     <Fragment>
-      {isError && <div>Something went wrong...</div>}
+      {isError && (
+        <Row className='justify-content-center'>
+          <Col sm='8' className='bg-cararra py-4'>
+            Something went wrong...
+          </Col>
+        </Row>
+      )}
       {!data.results ? (
-        <div>Loading...</div>
+        <Row className='justify-content-center'>
+          <Col sm='8' className='bg-cararra py-4'>
+            Loading...
+          </Col>
+        </Row>
       ) : (
-        <div className='row no-gutters justify-content-center'>
-          <div className='col-sm-4 p-2 rounded-left bg-cararra'>
+        <Row className='no-gutters justify-content-center'>
+          <Col sm='4' className='p-2 rounded-left bg-cararra'>
             <img
               src={`https://image.tmdb.org/t/p/w500/${data.results[randomNum].poster_path}`}
               className='border border-dark img-fluid'
               alt={data.results[randomNum].title}
             />
-          </div>
-          <div className='col-sm-4 rounded-right pt-3 bg-cararra'>
+          </Col>
+          <Col sm='4' className='rounded-right pt-3 bg-cararra'>
             <h2 className='text-center'>Movie of the Moment</h2>
             <p className='px-3 font-weight-bold'>
               {data.results[randomNum].title}
@@ -27,12 +38,16 @@ const Homepage = ({ data, isLoading, isError }) => {
             <p className='px-3 font-italic'>
               Release date: {data.results[randomNum].release_date}
             </p>
-
+            <p className='text-center'>
+              <Link to={`/movie/${data.results[randomNum].id}`}>
+                <Button>Read more</Button>
+              </Link>
+            </p>
             <p className='px-3'>
               <Link to='/popular'>See more popular movies</Link>
             </p>
-          </div>
-        </div>
+          </Col>
+        </Row>
       )}
     </Fragment>
   );

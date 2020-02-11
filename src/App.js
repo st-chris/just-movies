@@ -7,6 +7,7 @@ import Header from './components/header/Header';
 import Homepage from './pages/homepage/Homepage';
 import Search from './pages/search/Search';
 import MovieOverview from './components/movie-overview/Movie-overview';
+import MovieDetails from './components/movie-details/Movie-details';
 import About from './pages/about/About';
 import { API_KEY } from './config';
 import './App.scss';
@@ -52,6 +53,7 @@ const App = () => {
             )}
           />
           <Route exact path='/search/:query' component={Search} />
+          <Route exact path='/movie/:id' component={MovieDetails} />
           <Route exact path='/about' component={About} />
         </Switch>
       </div>
