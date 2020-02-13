@@ -15,6 +15,7 @@ const DataFetch = initialUrl => {
         const result = await axios(url);
         setData(result.data);
       } catch (error) {
+        console.log(error);
         setIsError(true);
       }
       setIsLoading(false);

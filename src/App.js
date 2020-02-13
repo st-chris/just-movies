@@ -14,8 +14,11 @@ import './App.scss';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const App = () => {
-  const [{ data, isLoading, isError }, doFetch] = DataFetch();
   const [page, setPage] = useState(1);
+  const [{ data, isLoading, isError }, doFetch] = DataFetch(
+    `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&api_key=${API_KEY}`
+  );
+
   useEffect(() => {
     doFetch(
       `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&api_key=${API_KEY}`

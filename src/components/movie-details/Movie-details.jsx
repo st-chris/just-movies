@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
-import DataFetch from '../../components/datafetch/DataFetch';
+import DataFetch from '../datafetch/DataFetch';
 import { Row, Col } from 'reactstrap';
-import { API_KEY } from '../../config';
 import Rating from '../rating/Rating';
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieDetails = ({ match }) => {
   const [{ data, isLoading, isError }, doFetch] = DataFetch();
