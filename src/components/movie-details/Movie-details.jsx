@@ -6,7 +6,9 @@ import Rating from '../rating/Rating';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const MovieDetails = ({ match }) => {
-  const [{ data, isLoading, isError }, doFetch] = DataFetch();
+  const [{ data, isLoading, isError }, doFetch] = DataFetch(
+    `https://api.themoviedb.org/3/movie/${match.params.id}?api_key=${API_KEY}&append_to_response=credits`
+  );
 
   useEffect(() => {
     doFetch(
