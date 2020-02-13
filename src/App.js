@@ -9,8 +9,9 @@ import Search from './pages/search/Search';
 import MovieOverview from './components/movie-overview/Movie-overview';
 import MovieDetails from './components/movie-details/Movie-details';
 import About from './pages/about/About';
-import { API_KEY } from './config';
 import './App.scss';
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const App = () => {
   const [{ data, isLoading, isError }, doFetch] = DataFetch();

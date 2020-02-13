@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataFetch from '../../components/datafetch/DataFetch';
 import MovieOverview from '../../components/movie-overview/Movie-overview';
-import { API_KEY } from '../../config';
-
+const API_KEY = process.env.REACT_APP_API_KEY;
 const Search = ({ match }) => {
   const [{ data, isLoading, isError }, doFetch] = DataFetch();
   const [page, setPage] = useState(1);
