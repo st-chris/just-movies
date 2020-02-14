@@ -43,22 +43,18 @@ const Pagination = ({ page, setPage, pages }) => {
   return (
     <Fragment>
       <Row className='justify-content-center'>
-        <PaginationStrap aria-label='Page navigation'>
+        <PaginationStrap size='sm' aria-label='Page navigation'>
           <PaginationItem id='first' className='disabled'>
-            <PaginationLink first onClick={() => setPage(1)} href='#' />
+            <PaginationLink first onClick={() => setPage(1)} />
           </PaginationItem>
           <PaginationItem id='previous' className='disabled'>
-            <PaginationLink
-              previous
-              onClick={() => setPage(page - 1)}
-              href='#'
-            />
+            <PaginationLink previous onClick={() => setPage(page - 1)} />
           </PaginationItem>
           {totalPages.map((el, idx) => {
             let id = `nr-${el}`;
             return (
               <PaginationItem key={idx} id={id}>
-                <PaginationLink onClick={() => setPage(el)} href='#'>
+                <PaginationLink onClick={() => setPage(el)}>
                   {el}
                 </PaginationLink>
               </PaginationItem>
@@ -66,14 +62,10 @@ const Pagination = ({ page, setPage, pages }) => {
           })}
 
           <PaginationItem id='next'>
-            <PaginationLink next onClick={() => setPage(page + 1)} href='#' />
+            <PaginationLink next onClick={() => setPage(page + 1)} />
           </PaginationItem>
           <PaginationItem id='last'>
-            <PaginationLink
-              last
-              onClick={() => setPage(totalPages.length)}
-              href='#'
-            />
+            <PaginationLink last onClick={() => setPage(totalPages.length)} />
           </PaginationItem>
         </PaginationStrap>
       </Row>
