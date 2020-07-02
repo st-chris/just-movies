@@ -8,7 +8,7 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Col
+  Col,
 } from 'reactstrap';
 import Rating from '../rating/Rating';
 
@@ -25,7 +25,15 @@ const MovieCard = ({ movie }) => {
     <Fragment>
       <Col key={movie.id} xs='8' sm='4' lg='2' className='mb-2'>
         <Card className='bg-cararra'>
-          <CardImg top width='100%' src={poster} alt={movie.title} />
+          <Link to={`/movie/${movie.id}`}>
+            <CardImg
+              top
+              width='100%'
+              src={poster}
+              alt={`Movie poster of ${movie.title}`}
+              title={movie.title}
+            />
+          </Link>
           <CardBody>
             <CardTitle className='font-weight-bold'>
               {movie.title.length > 20

@@ -1,0 +1,19 @@
+.btn-details-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #000000;
+
+  &:hover {
+    background-color: #9b5437;
+  }
+}
+
+.btn-details-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: #000000;
+
+  &:hover {
+    background-color: #9b5437;
+  }
+}

@@ -2,18 +2,18 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import DataFetch from '../datafetch/DataFetch';
 import { Row, Col, Button } from 'reactstrap';
-import Rating from '../rating/Rating';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './movie-details.scss';
+import './cast-details.scss';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const MovieDetails = ({ match, history }) => {
+const CastDetails = ({ match, history }) => {
   const [{ data, isLoading, isError }] = DataFetch(
-    `https://api.themoviedb.org/3/movie/${match.params.id}?api_key=${API_KEY}&append_to_response=credits`
+    `https://api.themoviedb.org/3/person/${match.params.id}?api_key=${API_KEY}&append_to_response=combined_credits`
   );
-
+  console.log(data);
+  let movieCounter = 0;
   return (
     <Fragment>
       {isError ? (
@@ -42,31 +42,53 @@ const MovieDetails = ({ match, history }) => {
             </Col>
           </Row>
           <Row className='no-gutters justify-content-center'>
-            <Col sm='4' className='p-2 bg-cararra'>
+            <Col sm='1' className='px-3 bg-cararra'>
               <img
-                src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500/${data.profile_path}`}
                 className='border border-dark img-fluid'
-                alt={data.title}
+                alt={data.name}
               />
             </Col>
-            <Col sm='4' className='pt-3 bg-cararra'>
-              <h2 className='text-center'>{data.title}</h2>
-              <p className='px-3 font-weight-bold'>
-                <Rating vote_average={data.vote_average} /> ({data.vote_count})
+            <Col sm='7' className=' px-3 bg-cararra'>
+              <h2>{data.name}</h2>
+              <p>Place of birth: {data.place_of_birth}</p>
+              <p>
+                Date of birth: {data.birthday.split('-').reverse().join('-')}
               </p>
-              <p className='px-3'>{data.overview}</p>
-              <p className='px-3 font-italic'>
-                Release date: {data.release_date.split('-').reverse().join('-')}
-              </p>
+              {data.deathday ? (
+                <p className='font-italic'>
+                  &#8224; {data.deathday.split('-').reverse().join('-')}
+                </p>
+              ) : (
+                ''
+              )}
+            </Col>
+          </Row>
+          <Row className='no-gutters justify-content-center'>
+            <Col sm='8' className='p-2 bg-cararra'>
+              <p className='px-3'>{data.biography}</p>
               <p className='px-3'>
-                <span className='font-weight-bold'>Cast:</span>
-                {data.credits
-                  ? data.credits.cast
-                      .filter((el, idx) => idx < 10)
+                <span className='font-weight-bold'>Played in:</span>
+                {data.combined_credits
+                  ? data.combined_credits.cast
+                      .sort((a, b) => b.popularity - a.popularity)
+                      .filter((el) => {
+                        if (el.media_type === 'movie' && movieCounter < 10) {
+                          movieCounter++;
+                          return el;
+                        } else {
+                          return false;
+                        }
+                      })
                       .map((el) => (
-                        <Fragment key={el.id}>
+                        <Fragment key={el.credit_id}>
                           {' '}
-                          <Link to={`/cast/${el.id}`}>{el.name}</Link> (
+                          <Link to={`/movie/${el.id}`}>
+                            {el.original_title
+                              ? el.original_title
+                              : el.original_name}
+                          </Link>{' '}
+                          (
                           <span className='font-italic'>as {el.character}</span>
                           ) |
                         </Fragment>
@@ -92,4 +114,4 @@ const MovieDetails = ({ match, history }) => {
   );
 };
 
-export default MovieDetails;
+export default CastDetails;

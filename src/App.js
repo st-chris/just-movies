@@ -8,6 +8,7 @@ import Homepage from './pages/homepage/Homepage';
 import Search from './pages/search/Search';
 import MovieOverview from './components/movie-overview/Movie-overview';
 import MovieDetails from './components/movie-details/Movie-details';
+import CastDetails from './components/cast-details/Cast-details';
 import About from './pages/about/About';
 import './App.scss';
 
@@ -33,7 +34,7 @@ const App = () => {
           <Route
             exact
             path='/'
-            render={props => (
+            render={(props) => (
               <Homepage
                 data={data}
                 isLoading={isLoading}
@@ -45,7 +46,7 @@ const App = () => {
           <Route
             exact
             path='/popular'
-            render={props => (
+            render={(props) => (
               <MovieOverview
                 data={data}
                 isLoading={isLoading}
@@ -58,6 +59,7 @@ const App = () => {
           />
           <Route exact path='/search/:query' component={Search} />
           <Route exact path='/movie/:id' component={MovieDetails} />
+          <Route exact path='/cast/:id' component={CastDetails} />
           <Route exact path='/about' component={About} />
         </Switch>
       </div>
